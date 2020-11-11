@@ -1,40 +1,57 @@
+
 #pragma once
 
 #include "Resource.hpp"
 
-class ResourceManager{
-  private:
-    Resource res;
-  
-  public:
-   ResourceManager(){
-     this->res = Resource();
-   }
+class ResourceManager
+{
+  Resource* a;
 
-  double get(){
-    return this->res.get();
-  }
+public:
 
-    ResourceManager(const ResourceManager&)
+    ResourceManager()
     {
-      this->res = ResourceManager();
+      a = new Resource;
     }
-    ResourceManager(ResourceManager&&) noexcept
-    {
 
-    }
-    ResourceManager& operator=(const ResourceManager&)
+    ResourceManager(const ResourceManager& rm)
     {
-  
+      a = new Resource{*rm.res};
+    }
+
+    ResourceManager(ResourceManager&& rm)
+    { 
+      a = nullptr;
+      a = rm.res;
+      rm.a = nullptr;
+    }
+
+    ~ResourceManager() 
+    {
+      delete a;
+    }
+
+    double get() 
+    { 
+      return a->get(); 
+    }
+
+    ResourceManager operator=(const ResourceManager& rm)
+    {
+        if (&rm != this) {
+            delete a;
+            a = new Resource{*rm.a}; 
+        }
         return *this;
     }
-    ResourceManager& operator=(ResourceManager&&) noexcept
+
+    ResourceManager operator=(ResourceManager&& rm)
     {
- 
+        if (&rm != this) {
+            delete a;
+            a = rm.a;
+            rm.a = nullptr;
+        }
         return *this;
     }
-
-  ~ResourceManager(){
-
-  }
 };
