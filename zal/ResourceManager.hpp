@@ -16,13 +16,13 @@ public:
 
     ResourceManager(const ResourceManager& rm)
     {
-      a = new Resource{*rm.res};
+      a = new Resource{*rm.a};
     }
 
     ResourceManager(ResourceManager&& rm)
     { 
       a = nullptr;
-      a = rm.res;
+      a = rm.a;
       rm.a = nullptr;
     }
 
