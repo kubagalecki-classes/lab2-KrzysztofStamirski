@@ -17,7 +17,7 @@ class ResourceManager{
 
     ResourceManager(const ResourceManager&)
     {
-      this->res = ResourceManager;
+      this->res = ResourceManager();
     }
     ResourceManager(ResourceManager&&) noexcept
     {
